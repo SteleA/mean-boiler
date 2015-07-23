@@ -18,7 +18,7 @@ module.exports = function(app) {
 
   // set enviorment to development or production
   app.set('env', config.env);
-  
+
   if (!app.get('env')) {
     app.use(function(err, req, res, next) {
       return res.status(500).json({error: 'enviorment not set'});

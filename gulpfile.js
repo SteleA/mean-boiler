@@ -1,20 +1,21 @@
 'use strict';
 
-var gulp = require('gulp');
-var browserSync = require('browser-sync');
-var nodemon = require('gulp-nodemon');
-var less = require('gulp-less');
-var path = require('path');
-var inject = require('gulp-inject');
+var gulp            = require('gulp');
+var browserSync     = require('browser-sync');
+var nodemon         = require('gulp-nodemon');
+var less            = require('gulp-less');
+var path            = require('path');
+var inject          = require('gulp-inject');
+var mainBowerFiles  = require('main-bower-files');
+var concat          = require('gulp-concat');
+var uglify 					= require('gulp-uglify');
+var gulpif 					= require('gulp-if');
+var notify 					= require('gulp-notify');
 
-gulp.task('less', function () {
-  return gulp.src('./public/app/*.less')
-    .pipe(less({
-      paths: [ path.join(__dirname, 'less', 'includes') ]
-    }))
-    .pipe(gulp.dest('./public/css'));
-});
+var production = process.env.NODE_ENV === 'production';
 
+
+//Browser sync
 gulp.task('browser-sync', ['nodemon', 'less'], function() {
 	browserSync.init(null, {
 		proxy: "http://localhost:3000",
@@ -27,6 +28,7 @@ gulp.task('browser-sync', ['nodemon', 'less'], function() {
 
 });
 
+//server reload
 gulp.task('nodemon', function (cb) {
   var init = true;
 	return nodemon({
@@ -36,13 +38,30 @@ gulp.task('nodemon', function (cb) {
   });
 });
 
-gulp.task('index', function () {
-
-  gulp.src('./public/index.html')
-    .pipe(inject(gulp.src(['./public/app/*.css','./public/app/**/*.js'], {read: false}), {ignorePath: 'public'}))
-    .pipe(gulp.dest('./public'))
-
+//Complie less
+gulp.task('less', function () {
+  return gulp.src('./public/app/*.less')
+    .pipe(less({
+      paths: [ path.join(__dirname, 'less', 'includes') ]
+    }))
+    .pipe(gulp.dest('./public/css'));
 });
 
-gulp.task('default', ['browser-sync','index'], function () {
+//Inject JS CSS into index.html
+gulp.task('injectIndex', function () {
+    return gulp.src('./public/index.html')
+        .pipe(inject(gulp.src('./public/js/vendors.js', {read: false}), {name: 'bower', relative: true}))
+        .pipe(inject(gulp.src(['./public/app/*.css','./public/app/**/*.js'], {read: false}),{ignorePath: 'public'}))
+        .pipe(gulp.dest('./public'));
 });
+
+//concat bower js files
+gulp.task('vendorsJS', function () {
+  return gulp.src(mainBowerFiles({filter: /\.js$/i}))
+      .pipe(concat('vendors.js'))
+			.pipe(uglify())
+      .pipe(gulp.dest('./public/js'))
+			.pipe(notify({ message: 'Finished minifying JavaScript'}));
+});
+
+gulp.task('default', ['browser-sync','injectIndex','vendorsJS'], function () {});

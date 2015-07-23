@@ -7,19 +7,32 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <title>MeanApp</title>
-
-    <script src="/bower_components/angular/angular.min.js"></script>
+    <base href="/">
 
     <!-- inject:css -->
     <link rel="stylesheet" href="/css/app.css">
     <!-- endinject -->
+
+    <!-- bower:css -->
+    <link rel="stylesheet" href="bower_components/material-design-lite/material.min.css">
+    <!-- endinject -->
+
+    <link href="https://fonts.googleapis.com/css?family=Roboto:regular,bold,italic,thin,light,bolditalic,black,medium&amp;lang=en" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
   </head>
 
-  <body >
+  <body ng-controller="MainCtrl">
 
-    <h1>Hej</h1>
-      <!-- inject:js -->
+    <div ui-view="" ng-class="logged?'':'no'" class="mdl-layout mdl-js-layout mdl-layout--fixed-drawer mdl-layout--fixed-header"></div>
+
+    <!-- bower:js -->
+    <script src="js/vendors.js"></script>
+    <!-- endinject -->
+
+    <!-- inject:js -->
     <script src="/app/app.js"></script>
     <!-- endinject -->
+
   </body>
 </html>
