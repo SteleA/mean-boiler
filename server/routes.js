@@ -20,8 +20,9 @@ module.exports = function(app) {
   });
 
   //Redirect requests to undefined routepaths to index
-  app.use(function(req, res, next) {
-    res.redirect('/');
-  });
+  app.route('/*')
+    .get(function(req, res) {
+      res.sendfile('./public' + '/index.html');
+    });
 
 };

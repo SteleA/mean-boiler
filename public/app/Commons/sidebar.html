@@ -1,22 +1,21 @@
-<header class="demo-drawer-header">
-  <img src="https://randomuser.me/api/portraits/med/men/62.jpg" class="demo-avatar">
-  <div class="demo-avatar-dropdown">
-    <span>hello@example.com</span>
-    <div class="mdl-layout-spacer"></div>
-    <button id="accbtn" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon">
-      <i class="material-icons">arrow_drop_down</i>
-    </button>
-    <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="accbtn">
-      <li class="mdl-menu__item">hello@example.com</li>
-      <li class="mdl-menu__item">info@example.com</li>
-      <li class="mdl-menu__item"><i class="material-icons">add</i>Add another account...</li>
-    </ul>
-  </div>
+<header class="demo-drawer-header" ng-show="user">
+
+  <span >
+    <img ng-src="http://www.gravatar.com/avatar/{{gravatar}}?s=300" class="demo-avatar">
+    <span class="welcome">Welcome</span><br>
+    <span class="user">{{user.username}}</span>
+  </span>
 </header>
 <nav class="demo-navigation mdl-navigation mdl-color--blue-grey-800">
-  <a class="mdl-navigation__link" href=""><i class="mdl-color-text--blue-grey-400 material-icons">home</i>Home</a>
-  <a class="mdl-navigation__link" href=""><i class="mdl-color-text--blue-grey-400 material-icons">inbox</i>Inbox</a>
-  <a class="mdl-navigation__link" href=""><i class="mdl-color-text--blue-grey-400 material-icons">delete</i>Trash</a>
+  <a class="mdl-navigation__link" ui-sref="main" href="" ><i class="mdl-color-text--blue-grey-400 material-icons">home</i>Home</a>
+  <a class="mdl-navigation__link" ng-hide="user" ui-sref="login" href=""><i class="mdl-color-text--blue-grey-400 material-icons">inbox</i>Login</a>
+  <a class="mdl-navigation__link" ng-show="user" ng-click="logout()" href=""><i class="mdl-color-text--blue-grey-400 material-icons">inbox</i>Logout</a>
+  <a class="mdl-navigation__link" ng-show="user" ui-sref="profile" href=""><i class="mdl-color-text--blue-grey-400 material-icons">inbox</i>Profile</a>
+  <a class="mdl-navigation__link" ng-hide="user" ui-sref="forgotPassword" href=""><i class="mdl-color-text--blue-grey-400 material-icons">inbox</i>Forgot password</a>
+  <a class="mdl-navigation__link" ng-hide="user" ui-sref="signup" href=""><i class="mdl-color-text--blue-grey-400 material-icons">inbox</i>Signup</a>
+  <a class="mdl-navigation__link" ng-show="user" ui-sref="settings" href=""><i class="mdl-color-text--blue-grey-400 material-icons">inbox</i>Settings</a>
+  <a class="mdl-navigation__link" ng-show="user.role === 'admin'" ui-sref="admin" href=""><i class="mdl-color-text--blue-grey-400 material-icons">inbox</i>Admin view</a>
+
 
   <div class="mdl-layout-spacer"></div>
   <a class="mdl-navigation__link" href=""><i class="mdl-color-text--blue-grey-400 material-icons">help_outline</i></a>

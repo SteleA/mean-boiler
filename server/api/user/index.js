@@ -13,9 +13,12 @@ router.use(function timeLog(req, res, next) {
 });
 
 // define the home page route
-router.get('/', auth.isAuthenticated(), controller.findAll);
-router.get('/:id', controller.findOne);
+router.get('/', auth.hasRole('admin'), controller.findAll);
+router.get('/:id', auth.isAuthenticated(), controller.findOne);
+router.delete('/:id', auth.hasRole('admin'), controller.deleteUser);
 router.post('/', controller.createUser);
+router.put('/', auth.isAuthenticated(), controller.updateUserSettings);
+router.get('/profile/me', auth.isAuthenticated(), controller.me);
 
 
 

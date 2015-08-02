@@ -8,13 +8,14 @@ var Schema = mongoose.Schema;
 var comments = new Schema({
   title: String,
   body: String,
-  date: {type: Date, default: new Date()}
+  date: {type: Date, default: new Date()},
 });
 
 // create a schema
 var userSchema = new Schema({
   username: { type: String, required: true, unique: true },
   password: { type: String, required: true },
+  email: { type: String, required: true, unique: true },
   role: {type: String, default: 'user'},
   comments: [comments]
 });
@@ -51,16 +52,32 @@ userSchema
   .path('username')
   .validate(function(value, respond) {
     var newUser = this;
+    console.log(newUser)
 
     newUser.constructor.findOne({username: value}, function(err, user) {
       if(err) throw err;
       if(user) {
-        //if(newUser.id === user.id) return respond(true);
+        if(newUser.id === user.id) return respond(true);
         return respond(false);
       }
       respond(true);
     });
   }, 'Username taken');
+
+  userSchema
+    .path('email')
+    .validate(function(value, respond) {
+      var newUser = this;
+
+      newUser.constructor.findOne({email: value}, function(err, user) {
+        if(err) throw err;
+        if(user) {
+          if(newUser.id === user.id) return respond(true);
+          return respond(false);
+        }
+        respond(true);
+      });
+    }, 'Email taken');
 
 var validatePresenceOf = function(value) {
   return value && value.length;

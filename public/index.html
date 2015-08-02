@@ -1,12 +1,12 @@
 <!doctype html>
-<html lang="en" ng-app="MeanApp">
+<html lang="en" ng-app="MeanApp" ng-controller="AppCtrl">
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="description" content="">
+    <meta name="description" content="" ng-bind="page.desc()">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>MeanApp</title>
+    <title ng-bind="'Mean app  - ' + page.title()"></title>
     <base href="/">
 
     <!-- inject:css -->
@@ -22,9 +22,9 @@
 
   </head>
 
-  <body ng-controller="MainCtrl">
+  <body >
 
-    <div ui-view="" ng-class="logged?'':'no'" class="mdl-layout mdl-js-layout mdl-layout--fixed-drawer mdl-layout--fixed-header"></div>
+    <div ng-cloak ui-view="" ng-class="logged?'':'no'" class="mdl-layout mdl-js-layout mdl-layout--fixed-drawer mdl-layout--fixed-header"></div>
 
     <!-- bower:js -->
     <script src="js/vendors.js"></script>
@@ -32,6 +32,17 @@
 
     <!-- inject:js -->
     <script src="/app/app.js"></script>
+    <script src="/app/head.controller.js"></script>
+    <script src="/app/Main/main.controller.js"></script>
+    <script src="/app/Services/auth.factory.js"></script>
+    <script src="/app/Services/interceptor.factory.js"></script>
+    <script src="/app/Services/localstore.factory.js"></script>
+    <script src="/app/Services/metaSettings.factory.js"></script>
+    <script src="/app/Account/Admin/admin.controller.js"></script>
+    <script src="/app/Account/Login/login.controller.js"></script>
+    <script src="/app/Account/Profile/profile.controller.js"></script>
+    <script src="/app/Account/Settings/settings.controller.js"></script>
+    <script src="/app/Account/Signup/signup.controller.js"></script>
     <!-- endinject -->
 
   </body>

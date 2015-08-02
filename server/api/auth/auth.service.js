@@ -13,6 +13,7 @@ var validateJwt = expressJwt({ secret: config.secret });
  * Otherwise returns 403
  */
 function isAuthenticated() {
+
   return compose()
     // Validate jwt
     .use(function(req, res, next) {

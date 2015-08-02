@@ -1,0 +1,37 @@
+<header ng-include="'app/Commons/header.html'" class="demo-header mdl-layout__header mdl-color--white mdl-color--grey-100 mdl-color-text--grey-600"></header>
+<div ng-include="'app/Commons/sidebar.html'" class="demo-drawer mdl-layout__drawer mdl-color--blue-grey-900 mdl-color-text--blue-grey-50"></div>
+
+<main class="mdl-layout__content mdl-color--grey-100">
+
+      <div class="mdl-grid mdl-cell--4-col">
+        <div class="mdl-cell-12-col">
+          <h4>Signup</h4>
+        </div>
+        <form ng-submit="submitForm(SignupCtrl.user)" name="loginForm">
+          <span style="color:red">{{error}}</span>
+          <div class="mdl-textfield mdl-js-textfield mdl-cell-12-col">
+              <input class="mdl-textfield__input" required ng-model="SignupCtrl.user.username" type="text" id="username" />
+              <label class="mdl-textfield__label" for="username">Username</label>
+          </div>
+
+          <div class="mdl-textfield mdl-js-textfield mdl-cell-12-col">
+              <input class="mdl-textfield__input" required ng-model="SignupCtrl.user.email" type="text" id="email" />
+              <label class="mdl-textfield__label" for="email">Email</label>
+          </div>
+
+          <div class="mdl-textfield mdl-js-textfield mdl-cell-12-col">
+              <input class="mdl-textfield__input" required ng-model="SignupCtrl.user.password" type="password" id="password" />
+              <label class="mdl-textfield__label"  for="password">Password</label>
+          </div>
+          <div class="mdl-cell-12-col">
+            <button type="submit" ng-disabled="loginForm.$invalid" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored">
+              Signup
+            </button>
+          </div>
+        </from>
+
+        {{SignupCtrl.user}}
+      </div>
+
+
+</main>

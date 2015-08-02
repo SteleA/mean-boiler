@@ -11,6 +11,7 @@ var concat          = require('gulp-concat');
 var uglify 					= require('gulp-uglify');
 var gulpif 					= require('gulp-if');
 var notify 					= require('gulp-notify');
+var ngmin 					= require('gulp-ngmin');
 
 var production = process.env.NODE_ENV === 'production';
 
@@ -51,7 +52,8 @@ gulp.task('less', function () {
 gulp.task('injectIndex', function () {
     return gulp.src('./public/index.html')
         .pipe(inject(gulp.src('./public/js/vendors.js', {read: false}), {name: 'bower', relative: true}))
-        .pipe(inject(gulp.src(['./public/app/*.css','./public/app/**/*.js'], {read: false}),{ignorePath: 'public'}))
+				//.pipe(inject(gulp.src('./public/js/bundle.js', {read: false}), {relative: true}))
+        .pipe(inject(gulp.src(['./public/app/*.css', './public/app/**.js', './public/app/**/**.js'], {read: false}),{ignorePath: 'public'}))
         .pipe(gulp.dest('./public'));
 });
 
@@ -61,7 +63,17 @@ gulp.task('vendorsJS', function () {
       .pipe(concat('vendors.js'))
 			.pipe(uglify())
       .pipe(gulp.dest('./public/js'))
-			.pipe(notify({ message: 'Finished minifying JavaScript'}));
+			//.pipe(notify({ message: 'Finished minifying JavaScript'}));
 });
 
-gulp.task('default', ['browser-sync','injectIndex','vendorsJS'], function () {});
+//concat bower js files
+gulp.task('bundleJS', function () {
+  return gulp.src('./public/app/**/*.js')
+      .pipe(concat('bundle.js'))
+			//.pipe(ngmin({dynamic: true}))
+			//.pipe(uglify())
+      .pipe(gulp.dest('./public/js'))
+			//.pipe(notify({ message: 'Finished minifying JavaScript'}));
+});
+
+gulp.task('default', ['browser-sync','injectIndex','vendorsJS','bundleJS'], function () {});
