@@ -1,11 +1,10 @@
 sudo: false
 language: node_js
 env:
-  - appName=Mean app
-  - appSecret=test
-  - supportEmail=support@meanapp.io
-env:
   global:
+    - appName: Mean app
+    - appSecret: test
+    - supportEmail: support@meanapp.io
     - secure: GhJCWWgxEIexr6KH61XDUP+U86axBeQ0wkmi4BXoBi6jdfJ+qt7tDQV892EcW76gEkeZAq+MZlipWlqXjrFZKwN5N6Nq/zpeuTsKNM81wu+hveedUYKxji5gzJu4ANqHN7egWhoxvL2PGLZ9VPVDeKtqAFJ7ydp/2nPVnOxGhMQIcunxmWE2o38ZBcZLiLL8ly/1SZ8xhx0Brd4uPnAgNFtwk13z/d1p9hpFR8W0+WeyI5SzQfVKEbleptKakEsUtH+UeRbwbmi20fbbzze0tS9s8xU6EoeKtcXMSHE97UUuhfZfBMoSrV4aRRRD/rKmqkEXxNvwbxukPQAUyXsTZzKgJc8nLn6qrm7SmrHDVN7iNPQ6RvjOhHheI0+oKxKmsgWoukX5386jCkno6PJanmcf0+GqyBhGWkUSLdwuTGRIbQG7/InsTiB1quwsLiuROn2fEMgj+cDORWnFoRD9h9Jh2j4gYU5HxU9gXuIJnywmUstlTX3VUbiN/ZKi2AujsmYwhIzFQRPE4+6pZdpyc5idOtsIUeYFwLbA4o9R5j3oTwGHTLF7XEZeF6a4CRI9nEIV+kllI4/2H9iUT2FHK8AhVoPDuWDtT+bkdv06hADE/hXjjOPYQ6dMgJBYuQD4mTBIc9jpS935VinGhkbAAZi3DPJ0u+XKMZhBkFRVRu4=
     - secure: CUfYyZJ+dL2EeoVTCEkURaMzn9KmpZytxRAIPCZQ4Jg/Dvm3oZveT10sf6imMCaDu6vVo1h+cpV4oQ/36Iv/SL9t1s2nb97RmFoNyUuhGaXS2gbIhxSh9zoZgSwCwvVj1fBALgoRXck+h2FmUMgk1MUCUnCNxN4ZrpT+te3SHDw77lVzGOaUWvdsLfev29ikYew39dK4IFNbqTXh7yvU0au+HviMAaLbrKECVWtYlF1Aq5e0BEK11Qbm3KLtrswrJtmWU9ViST1O4MW7WfINdCj0FWh9quGppjXWD572ADzs+hnTzH9lPlOd7W2QKvtr5leUTFZewY00uxLQ+v7nD0uvF90sdEI6lFjqAjNq6LCsdqON6oNgnWVAq2e3NFTnGmbNKewEyCq6DB2FAIYKZRx7bdYiiRDBzzba1DAJWv5SAfb8mYAMje+wMoMKrkkFeXbrp9hW35uwtG1q0Iqg8mf8zwwDNnyhArssN04mu1tHHeZl0Dw1jHKDxSopv1IJ+5LkUvIybC83yxRZer7Smn/XerE+FMjqdt5WF4Y/SBCHvBKcBuA0CIaY1NJfC+fo97gneEzpV544WvGSBBJGRDh+VnkmVd2PZLdw8OZNRG3zrXB6WgGLCZ+eOhBpwdYwRc/9PXgR7TmyGogGAKN5czEX46tvYNdsjY+vayVRs1Y=
 addons:
@@ -28,7 +27,9 @@ before_script:
   - bower install
 script:
   - npm run test
+  - istanbul cover ./node_modules/mocha/bin/_mocha -- -R spec \ && cat ./coverage/coverage.json | ./node_modules/codecov.io/bin/codecov.io.js
 after_success:
+  - bash <(curl -s https://codecov.io/bash)
   - npm run semantic-release
 branches:
   except:
