@@ -17,6 +17,8 @@ before_script:
   - npm prune
   - npm install -g bower
   - npm install -g gulp
+  - npm install -g protractor
+  - webdriver-manager update
   - bower install
 script:
   - npm run test

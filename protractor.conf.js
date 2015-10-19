@@ -7,7 +7,7 @@ exports.config = {
     enableTimeouts: false
   },
   capabilities: {
-    'browserName': 'chrome'
+    'browserName': 'phantomjs'
   },
   onPrepare: function () {
     process.env.test = 9000
