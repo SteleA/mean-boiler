@@ -1,4 +1,7 @@
 exports.config = {
+  sauceUser: process.env.SAUCE_USERNAME,
+  sauceKey: process.env.SAUCE_ACCESS_KEY,
+
   framework: 'mocha',
   specs: [
     'test/e2e/**/*.spec.js'
@@ -7,7 +10,10 @@ exports.config = {
     enableTimeouts: false
   },
   capabilities: {
-    'browserName': 'phantomjs'
+    'browserName': 'chrome',
+    'tunnel-identifier': process.env.TRAVIS_JOB_NUMBER,
+    'build': process.env.TRAVIS_BUILD_NUMBER,
+    'name': 'ngValidation Protractor Tests'
   },
   onPrepare: function () {
     process.env.test = 9000
