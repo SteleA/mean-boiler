@@ -1,5 +1,9 @@
 sudo: false
 language: node_js
+env:
+  - appName=Mean app
+  - appSecret=test
+  - supportEmail=support@meanapp.io
 cache:
   directories:
     - node_modules
@@ -23,7 +27,3 @@ branches:
     - "/^v\\d+\\.\\d+\\.\\d+$/"
 services:
   - mongodb
-env:
-  - appName=Mean app
-  - appSecret=test
-  - supportEmail=support@meanapp.io

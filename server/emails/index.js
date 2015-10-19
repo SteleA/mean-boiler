@@ -10,6 +10,8 @@ exports.forgotPassword = function(res, user){
   var template = fs.readFileSync(__dirname + '/forgotPassword.hjs','utf-8');
   var compliedTemplate = hogan.compile(template);
 
+  if(!config.sendgridUsername && !config.sendgridPassword) return res.send('missing sendgrid credentials');
+
   sendgrid.send({
     to:       user.email,
     fromname: config.appName,
