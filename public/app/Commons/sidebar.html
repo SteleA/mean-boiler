@@ -1,22 +1,13 @@
-<header class="demo-drawer-header" ng-show="user">
+<div id="logo" flex="20">
 
-  <span >
-    <img ng-src="http://www.gravatar.com/avatar/{{gravatar}}?s=300" class="demo-avatar">
-    <span class="welcome">Welcome</span><br>
-    <span class="user">{{user.username}}</span>
-  </span>
-</header>
-<nav class="demo-navigation mdl-navigation mdl-color--blue-grey-800">
-  <a class="mdl-navigation__link" ui-sref="main" href="" ><i class="mdl-color-text--blue-grey-400 material-icons">home</i>Home</a>
-  <a class="mdl-navigation__link" ng-hide="user" ui-sref="login" href=""><i class="mdl-color-text--blue-grey-400 material-icons">inbox</i>Login</a>
-  <a class="mdl-navigation__link" ng-show="user" ng-click="logout()" href=""><i class="mdl-color-text--blue-grey-400 material-icons">inbox</i>Logout</a>
-  <a class="mdl-navigation__link" ng-show="user" ui-sref="profile" href=""><i class="mdl-color-text--blue-grey-400 material-icons">inbox</i>Profile</a>
-  <a class="mdl-navigation__link" ng-hide="user" ui-sref="forgotPassword" href=""><i class="mdl-color-text--blue-grey-400 material-icons">inbox</i>Forgot password</a>
-  <a class="mdl-navigation__link" ng-hide="user" ui-sref="signup" href=""><i class="mdl-color-text--blue-grey-400 material-icons">inbox</i>Signup</a>
-  <a class="mdl-navigation__link" ng-show="user" ui-sref="settings" href=""><i class="mdl-color-text--blue-grey-400 material-icons">inbox</i>Settings</a>
-  <a class="mdl-navigation__link" ng-show="user.role === 'admin'" ui-sref="admin" href=""><i class="mdl-color-text--blue-grey-400 material-icons">inbox</i>Admin view</a>
+  <h1><img ng-src="/assets/meanlogo.png" ui-sref="main">Mean boiler</h1>
+</div>
+<div ng-repeat="navItem in navItems" ng-show="user.role === navItem.permission" flex>
 
+  <span class="title">{{navItem.title}}</span>
 
-  <div class="mdl-layout-spacer"></div>
-  <a class="mdl-navigation__link" href=""><i class="mdl-color-text--blue-grey-400 material-icons">help_outline</i></a>
-</nav>
+  <a ui-sref-active="active" ui-sref="{{link.linksTo}}" href ng-repeat="link in navItem.items" ng-click="toggleLeft()">
+    <span class="icon {{link.icon}}"></span> {{link.text}}
+  </a>
+
+</div>

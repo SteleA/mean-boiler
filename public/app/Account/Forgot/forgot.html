@@ -1,0 +1,19 @@
+<div layout="row" layout-wrap>
+  <div flex="33" flex-md="100" flex-sm="100">
+    <span style="color:red">{{error}}</span>
+    <form name="userForm" ng-submit="submitForm()">
+      <md-input-container>
+        <label>Enter username or email</label>
+        <input name="userName" ng-model="form.username" required>
+      </md-input-container>
+      <div layout="row" layout-fill>
+        <div flex><md-button class="md-raised md-primary" type="submit" ng-disabled="userForm.$invalid">Send</md-button></div>
+        <div flex><span class="pull-right">Or login with <md-button class="md-fab md-mini md-primary"ng-click="loginFb()"><i class="icon ion-social-facebook"></i></md-button></span></div>
+      </div>
+
+    </form>
+
+
+
+  </div>
+</div>

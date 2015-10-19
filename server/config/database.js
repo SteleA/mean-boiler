@@ -5,4 +5,4 @@ var config    = require('./');
 
 module.exports = function() {
   mongoose.connect(config.mongodbURL);
-}
+};

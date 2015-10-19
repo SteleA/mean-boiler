@@ -1,23 +1,17 @@
-'use strict';
 
 var app = angular.module('MeanApp', [
   'ui.router',
-  'angular-md5'
+  'angular-md5',
+  'ngMaterial'
 ]);
 
 app.run(function($rootScope, $state, LocalStore, Auth) {
-    $rootScope.user = LocalStore.getUser();
-
-    $rootScope.$on('$viewContentLoaded', function () {
-      setTimeout(function () {
-        componentHandler.upgradeAllRegistered();
-      }, 100);
-    });
+    $rootScope.user = LocalStore.getItem('user');
 
     $rootScope.$on('$stateChangeStart', function (event, next) {
 
     if (next.authenticate) {
-      if (LocalStore.getUser()) return
+      if (LocalStore.getItem('user')) return;
       event.preventDefault();
       $state.go('login');
     }
@@ -25,17 +19,22 @@ app.run(function($rootScope, $state, LocalStore, Auth) {
     if (next.hasRole === 'admin') {
       var userRole = next.hasRole;
 
-      Auth.userIs(userRole)
+      if (!LocalStore.getItem('user')){
+        event.preventDefault();
+        $state.go('main');
+      }
+
+      Auth.userIs()
         .then(
           function success(response) {
             if (userRole === response.data.role){
-              return
+              return;
             }else {
               event.preventDefault();
               $state.go('main');
             }
           }
-        )
+        );
     }
 
     });
@@ -44,16 +43,14 @@ app.run(function($rootScope, $state, LocalStore, Auth) {
 app.config(function ($locationProvider, $httpProvider) {
   $locationProvider.html5Mode(true);
   $httpProvider.interceptors.push('AuthInterceptor');
-})
+});
 
 
 
 app.config(function($stateProvider, $urlRouterProvider) {
-  //
-  // For any unmatched url, redirect to /state1
+
   $urlRouterProvider.otherwise("/");
-  //
-  // Now set up the states
+
   $stateProvider
 
     .state('main', {
@@ -62,10 +59,28 @@ app.config(function($stateProvider, $urlRouterProvider) {
       controller: 'MainCtrl',
     })
 
+    .state('token', {
+      url: "/token/:token",
+      templateUrl: "app/Main/main.html",
+      controller: 'TokenCtrl',
+    })
+
     .state('login', {
       url: "/login",
       templateUrl: "app/Account/Login/login.html",
       controller: 'LoginCtrl'
+    })
+
+    .state('forgot', {
+      url: "/forgot",
+      templateUrl: "app/Account/Forgot/forgot.html",
+      controller: 'ForgotCtrl'
+    })
+
+    .state('resetPassword', {
+      url: "/resetPassword/:forgotPasswordToken",
+      templateUrl: "app/Account/Forgot/reset.html",
+      controller: 'ResetCtrl'
     })
 
     .state('signup', {
@@ -93,6 +108,6 @@ app.config(function($stateProvider, $urlRouterProvider) {
       templateUrl: "app/Account/Admin/admin.html",
       controller: 'AdminCtrl',
       hasRole: 'admin',
-    })
+    });
 
 });

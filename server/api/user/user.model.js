@@ -3,25 +3,21 @@
 // grab the things we need
 var mongoose = require('mongoose');
 var bcrypt   = require('bcrypt-nodejs');
-var Schema = mongoose.Schema;
+var Schema   = mongoose.Schema;
+var helper   = require('../../helpers');
 
-var comments = new Schema({
-  title: String,
-  body: String,
-  date: {type: Date, default: new Date()},
-});
+
 
 // create a schema
 var userSchema = new Schema({
   username: { type: String, required: true, unique: true },
   password: { type: String, required: true },
+  forgotPasswordToken: String,
+  forgotPasswordTokenExpires: String,
   email: { type: String, required: true, unique: true },
   role: {type: String, default: 'user'},
-  comments: [comments]
+  facebook: {}
 });
-
-
-
 
 
 userSchema
@@ -44,7 +40,7 @@ userSchema.methods.validPassword = function(password) {
 
 
 userSchema.methods.profile = function() {
-  return {username: this.username, password: this.password}
+  return {username: this.username, password: this.password};
 };
 
 // Validate username is not taken
@@ -52,7 +48,6 @@ userSchema
   .path('username')
   .validate(function(value, respond) {
     var newUser = this;
-    console.log(newUser)
 
     newUser.constructor.findOne({username: value}, function(err, user) {
       if(err) throw err;
@@ -79,6 +74,7 @@ userSchema
       });
     }, 'Email taken');
 
+
 var validatePresenceOf = function(value) {
   return value && value.length;
 };
@@ -88,7 +84,7 @@ userSchema.pre('save', function (next) {
 
   this.password = bcrypt.hashSync(this.password, bcrypt.genSaltSync(8), null);
   next();
-})
+});
 
 
 var User = mongoose.model('User', userSchema);

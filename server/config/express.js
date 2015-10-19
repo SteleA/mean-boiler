@@ -1,29 +1,19 @@
 'use strict';
 
 var express       = require('express');
-var mongoose      = require('mongoose');
 var config        = require('./');
 var morgan        = require('morgan');
 var cookieParser  = require('cookie-parser');
 var bodyParser    = require('body-parser');
 var cors          = require('cors');
-var jwt           = require('express-jwt');
-
-
+var path          = require('path');
 
 module.exports = function(app) {
 
+  app.set('appPath', path.join(path.normalize(__dirname + '/../..'), 'public'));
+
   // allow CORS
   app.use(cors());
-
-  // set enviorment to development or production
-  app.set('env', config.env);
-
-  if (!app.get('env')) {
-    app.use(function(err, req, res, next) {
-      return res.status(500).json({error: 'enviorment not set'});
-    });
-  }
 
   // use morgan to log requests to the console
   app.use(morgan('dev'));
@@ -36,6 +26,6 @@ module.exports = function(app) {
   app.use(bodyParser.json());
 
   // serve public
-  app.use(express.static('./public'));
+  app.use(express.static(app.get('appPath')));
 
-}
+};

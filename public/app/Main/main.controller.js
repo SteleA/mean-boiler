@@ -1,5 +1,4 @@
-app.controller('MainCtrl', function($scope, MetaSettings, LocalStore, $rootScope, md5, $state){
+app.controller('MainCtrl', function($scope, MetaSettings){
   MetaSettings.setTitle('Main');
-
 
 });

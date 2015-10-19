@@ -1,12 +1,6 @@
 'use strict';
 
-var express   = require('express');
-var router    = express.Router();
-
-
-
 module.exports = function(app) {
-
 
   // User route
   app.use('/api/user', require('./api/user'));
@@ -21,8 +15,8 @@ module.exports = function(app) {
 
   //Redirect requests to undefined routepaths to index
   app.route('/*')
-    .get(function(req, res) {
-      res.sendfile('./public' + '/index.html');
+    .get(function(req, res, next) {
+      res.sendFile(app.get('appPath') + '/index.html');
     });
 
 };

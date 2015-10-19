@@ -1,10 +1,9 @@
 app.controller('SignupCtrl', function($scope, MetaSettings, Auth){
   MetaSettings.setTitle('Signup');
 
-  var SignupCtrl = this;
-
   $scope.submitForm = function(user){
-    Auth.signup(user)
+
+    Auth.signup($scope.form)
       .then(function(res){})
       .catch(function(err){
         $scope.error = '';
@@ -21,8 +20,8 @@ app.controller('SignupCtrl', function($scope, MetaSettings, Auth){
           $scope.error = $scope.error + err.data.errors.email.message;
         }
 
-      })
+      });
 
-  }
+  };
 
 });

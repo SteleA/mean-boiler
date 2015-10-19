@@ -5,26 +5,27 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="description" content="" ng-bind="page.desc()">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
-    <title ng-bind="'Mean app  - ' + page.title()"></title>
+    <title ng-bind="page.appName() + ' - ' + page.title()"></title>
     <base href="/">
+
+    <link href="https://fonts.googleapis.com/css?family=Roboto:regular,bold,italic,thin,light,bolditalic,black,medium&amp;lang=en" rel="stylesheet">
+    <link href="http://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css" rel="stylesheet">
 
     <!-- inject:css -->
     <link rel="stylesheet" href="/css/app.css">
+    <link rel="stylesheet" href="/css/vendors.css">
     <!-- endinject -->
-
-    <!-- bower:css -->
-    <link rel="stylesheet" href="bower_components/material-design-lite/material.min.css">
-    <!-- endinject -->
-
-    <link href="https://fonts.googleapis.com/css?family=Roboto:regular,bold,italic,thin,light,bolditalic,black,medium&amp;lang=en" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
   </head>
 
-  <body >
+  <body layout="row">
+    <md-sidenav ng-hide="!isLogged.getItem('user')" ng-include="'app/Commons/sidebar.html'" layout="column" class="md-sidenav-left md-whiteframe-z2" md-component-id="left" md-is-locked-open="$mdMedia('gt-sm')"></md-sidenav>
 
-    <div ng-cloak ui-view="" ng-class="logged?'':'no'" class="mdl-layout mdl-js-layout mdl-layout--fixed-drawer mdl-layout--fixed-header"></div>
+
+    <div flex>
+      <md-toolbar ng-include="'app/Commons/header.html'" layout="row"></md-toolbar>
+      <div id="content"><md-content layout="column" flex class="md-padding" ui-view=""></md-content></div>
+    </div>
 
     <!-- bower:js -->
     <script src="js/vendors.js"></script>
@@ -39,11 +40,13 @@
     <script src="/app/Services/localstore.factory.js"></script>
     <script src="/app/Services/metaSettings.factory.js"></script>
     <script src="/app/Account/Admin/admin.controller.js"></script>
+    <script src="/app/Account/Forgot/forgot.controller.js"></script>
+    <script src="/app/Account/Forgot/reset.controller.js"></script>
     <script src="/app/Account/Login/login.controller.js"></script>
+    <script src="/app/Account/Login/token.controller.js"></script>
     <script src="/app/Account/Profile/profile.controller.js"></script>
     <script src="/app/Account/Settings/settings.controller.js"></script>
     <script src="/app/Account/Signup/signup.controller.js"></script>
     <!-- endinject -->
-
   </body>
 </html>

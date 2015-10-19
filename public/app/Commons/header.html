@@ -1,21 +1,60 @@
-  <div class="mdl-layout__header-row">
-    <span class="mdl-layout-title" ng-bind="page.title()">Mean app</span>
-    <div class="mdl-layout-spacer"></div>
-    <div class="mdl-textfield mdl-js-textfield mdl-textfield--expandable">
-      <label class="mdl-button mdl-js-button mdl-button--icon" for="search">
-        <i class="material-icons">search</i>
-      </label>
-      <div class="mdl-textfield__expandable-holder">
-        <input class="mdl-textfield__input" type="text" id="search" />
-        <label class="mdl-textfield__label" for="search">Enter your query...</label>
-      </div>
+<div class="md-toolbar-tools" id="header">
+  <md-button ng-click="toggleSidenav('left')" hide-gt-sm class="md-icon-button" ng-hide="!user">
+    <i class="icon ion-navicon"></i>
+  </md-button>
+
+    <h1 class="" flex ng-bind="page.title()"></h1>
+
+  <div class="rightSide" flex>
+    <div class="loginSignup" ng-hide="user">
+      <a ui-sref="login" href class="login">Login</a>
+      <span class="icon ion-happy-outline"></span>
+      <a ui-sref="signup" class="signup" href>Signup</a>
     </div>
-    <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon" id="hdrbtn">
-      <i class="material-icons">more_vert</i>
-    </button>
-    <ul class="mdl-menu mdl-js-menu mdl-js-ripple-effect mdl-menu--bottom-right" for="hdrbtn">
-      <li class="mdl-menu__item">About</li>
-      <li class="mdl-menu__item">Contact</li>
-      <li class="mdl-menu__item">Legal information</li>
-    </ul>
+
+    <div ng-show="user" >
+      <div class="name" hide-sm>
+        <div hide-sm>
+          <span class="welcome">Welcome</span>
+          <span class="user">{{user.facebook.displayName || user.username}}</span>
+        </div>
+      </div>
+
+      <md-menu md-offset="0 35">
+        <md-button aria-label="Open menu" class="md-icon-button menuBtn" ng-click="$mdOpenMenu($event)">
+          <img ng-src="http://www.gravatar.com/avatar/{{gravatar}}?s=300" class="gravatar">
+        </md-button>
+        <md-menu-content width="3">
+          <md-menu-item>
+            <md-button ui-sref="profile">
+              <span class="icon ion-bowtie"></span>
+              Profile
+            </md-button>
+          </md-menu-item>
+          <md-menu-item>
+            <md-button ui-sref="settings">
+              <span class="icon ion-gear-a"></span>
+              Settings
+            </md-button>
+          </md-menu-item>
+          <md-menu-item>
+            <md-button ui-sref="profile" ng-click="logout.logout()" class="logout">
+              <span class="icon ion-power"></span>
+              Logout
+            </md-button>
+          </md-menu-item>
+        </md-menu-content>
+      </md-menu>
+
+
+    </div>
+
   </div>
+
+
+
+
+
+
+
+</div>

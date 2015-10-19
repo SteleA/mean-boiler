@@ -5,7 +5,8 @@ app.factory('AuthInterceptor', function AuthInterceptor(LocalStore) {
   };
 
   function addToken(config) {
-    var token = LocalStore.getToken();
+    var token = LocalStore.getItem('auth-token');
+
     if (token) {
       config.headers = config.headers || {};
       config.headers.Authorization = 'Bearer ' + token;

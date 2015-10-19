@@ -8,6 +8,7 @@ var compose     = require('composable-middleware');
 var User        = require('../user/user.model');
 var validateJwt = expressJwt({ secret: config.secret });
 
+
 /**
  * Attaches the user object to the request if authenticated
  * Otherwise returns 403

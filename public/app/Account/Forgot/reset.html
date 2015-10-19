@@ -1,0 +1,19 @@
+<div layout="row" layout-wrap>
+  <div flex="33" flex-md="100" flex-sm="100">
+    <span style="color:red">{{error}}</span>
+    <form name="userForm" ng-submit="submitForm()">
+
+      <md-input-container>
+        <label>Enter new password</label>
+        <input name="password" type="password" ng-model="form.password" required>
+      </md-input-container>
+      <div layout="row" layout-fill>
+        <div flex><md-button class="md-raised md-primary" type="submit" ng-disabled="userForm.$invalid">Change password</md-button></div>
+      </div>
+
+    </form>
+
+
+
+  </div>
+</div>
