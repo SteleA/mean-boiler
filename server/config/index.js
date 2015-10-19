@@ -6,7 +6,7 @@ var mongoose = require('mongoose');
 var config = {
   appName: process.env.appName,
   supportEmail: process.env.supportEmail,
-  secret: process.env.appSecret,
+  secret: process.env.appSecret || 'appSecret',
 
   //token expires in 30 days
   tokenExpires: 60*24*30,
