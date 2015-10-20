@@ -29,4 +29,6 @@ node_modules
 #Bower files
 public/bower_components/**
 
+public/js/bundle.js
+
 .env

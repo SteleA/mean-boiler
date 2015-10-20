@@ -13,6 +13,7 @@ Some goddies:
 * Token based auth
 * Salt encrypted passwords
 * Email with sendgrid
+* Gravatar profile picture
 
 ## Installation
 `git clone https://github.com/alemik/mean-boiler.git`
@@ -34,6 +35,7 @@ facebookAppSecret=yourFacebookAppSecret
 
 #### Build for production
 `gulp build` Dist directory will contain the production ready code.
+`gulp serve:dist` To run a server at localhost:3000 with the production code.
 #### Run tests
 `npm test`
 ## Contributing
