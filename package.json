@@ -10,6 +10,11 @@
     "semantic-release": "semantic-release pre && npm publish && semantic-release post",
     "codecov": "istanbul cover ./node_modules/mocha/bin/_mocha -- -R spec && cat ./coverage/coverage.json | ./node_modules/codecov.io/bin/codecov.io.js"
   },
+  "config": {
+    "ghooks": {
+      "pre-commit": "npm run test"
+    }
+  },
   "repository": {
     "type": "git",
     "url": "https://github.com/alemik/mean-boiler.git"
@@ -57,6 +62,7 @@
     "commitizen": "2.1.0",
     "cz-conventional-changelog": "1.1.4",
     "dotenv": "^1.2.0",
+    "ghooks": "0.3.2",
     "gulp": "^3.8.11",
     "gulp-clean": "^0.3.1",
     "gulp-concat": "^2.6.0",
