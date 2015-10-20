@@ -1,7 +1,10 @@
+https://img.shields.io/travis/alemik/mean-boiler.svg
+https://img.shields.io/codecov/c/github/alemik/mean-boiler.svg
+
 # Mean boiler
 A ready to use boilerplate to get your projects up and running (JUST DO IT!).
 
-[Demo](meanboiler.herokuapp.com)
+[Demo](http://meanboiler.herokuapp.com)
 
 Some goddies:
 * Google material design
@@ -13,6 +16,7 @@ Some goddies:
 
 ## Installation
 `git clone https://github.com/alemik/mean-boiler.git`
+
 `npm install && bower install`
 ## Usage
 #### Startup
@@ -21,11 +25,17 @@ Make sure you have gulp installed globally. Startup the app by using `gulp`
 Add local process.env by creating a .env file in the app root folder. Make sure you don't push this file to github.
 
 appName=App name
+
 appSecret=setYourAppSecret
+
 supportEmail=support@meanapp.io
+
 sendgridUsername=yourSendGridUsername
+
 sendgridPassword=yourSendGridPassword
+
 facebookAppID=yourFacebookAppId
+
 facebookAppSecret=yourFacebookAppSecret
 
 #### Build for production
