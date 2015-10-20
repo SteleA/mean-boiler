@@ -24,12 +24,12 @@ Make sure you have gulp installed globally. Startup the app by using `gulp`
 #### local process.env for API credentials and other sensitive data
 Add local process.env by creating a .env file in the app root folder. Make sure you don't push this file to github.
 
-appName=App name
-appSecret=setYourAppSecret
-supportEmail=support@meanapp.io
-sendgridUsername=yourSendGridUsername
-sendgridPassword=yourSendGridPassword
-facebookAppID=yourFacebookAppId
+appName=App namev<br>
+appSecret=setYourAppSecret <br>
+supportEmail=support@meanapp.io <br>
+sendgridUsername=yourSendGridUsername <br>
+sendgridPassword=yourSendGridPassword <br>
+facebookAppID=yourFacebookAppId <br>
 facebookAppSecret=yourFacebookAppSecret
 
 #### Build for production
